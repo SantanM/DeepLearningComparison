@@ -1,9 +1,9 @@
 
-if (!require("remotes")) install.packages("remotes"); library(remotes)
-if (!require("dplyr")) install.packages("dplyr"); library(dplyr)
-if (!require("Strategus")) remotes::install_github('ohdsi/Strategus', upgrade = "never"); library(Strategus)
-if (!require("PatientLevelPrediction")) remotes::install_github('ohdsi/PatientLevelPrediction', upgrade = "never"); library(PatientLevelPrediction)
-if (!require("DeepPatientLevelPrediction")) remotes::install_github('ohdsi/DeepPatientLevelPrediction', upgrade = "never"); library(DeepPatientLevelPrediction)
+# if (!require("remotes")) install.packages("remotes"); library(remotes)
+# if (!require("dplyr")) install.packages("dplyr"); library(dplyr)
+# if (!require("Strategus")) remotes::install_github('ohdsi/Strategus', upgrade = "never"); library(Strategus)
+# if (!require("PatientLevelPrediction")) remotes::install_github('ohdsi/PatientLevelPrediction', upgrade = "never"); library(PatientLevelPrediction)
+# if (!require("DeepPatientLevelPrediction")) remotes::install_github('ohdsi/DeepPatientLevelPrediction', upgrade = "never"); library(DeepPatientLevelPrediction)
 
 ################################################################################
 # COHORTS ######################################################################
@@ -158,10 +158,10 @@ getDevice <- function() {
 }
 
 resNetModelSettings <- setResNet(
-  sizeEmbedding = 2^(6:9),
-  numLayers = 1:8,
-  sizeHidden = 2^(6:10),
-  hiddenFactor = 1:4,
+  sizeEmbedding = as.integer(2^(6:9)),
+  numLayers = as.integer(1:8),
+  sizeHidden = as.integer(2^(6:10)),
+  hiddenFactor = as.integer(1:4),
   hiddenDropout = seq(0, 3e-1, 5e-2),
   residualDropout = seq(0, 3e-1, 5e-2),
   hyperParamSearch = 'random',
@@ -169,20 +169,20 @@ resNetModelSettings <- setResNet(
   randomSampleSeed = 123,
   estimatorSettings = setEstimator(
     weightDecay = c(1e-6, 1e-3),
-    batchSize=5*2^10,
+    batchSize=as.integer(5*2^10),
     learningRate = "auto",
     device = getDevice,
-    epochs=5e1,
+    epochs=as.integer(5e1),
     seed=1e3,
     earlyStopping = list(useEarlyStopping=TRUE,
-                         params = list(patience=4)))
+                         params = list(patience=4L)))
 )
 
 transformerModelSettings <- setTransformer(
-  numBlocks = 2:4,
-  dimToken = 2^(6:9),
-  dimOut = 1,
-  numHeads = c(2, 4, 8),
+  numBlocks = as.integer(2:4),
+  dimToken = as.integer(2^(6:9)),
+  dimOut = 1L,
+  numHeads = c(2L, 4L, 8L),
   attDropout = seq(0, 3e-1, 5e-2),
   ffnDropout = seq(0, 3e-1, 5e-2),
   resDropout = seq(0, 3e-1, 5e-2),
@@ -193,13 +193,13 @@ transformerModelSettings <- setTransformer(
   randomSampleSeed = 123,
   estimatorSettings = setEstimator(
     weightDecay = c(1e-6, 1e-3),
-    batchSize=2^10,
+    batchSize = as.integer(2^10),
     learningRate = "auto",
     device = getDevice,
-    epochs=5e1,
+    epochs=as.integer(5e1),
     seed=1e3,
     earlyStopping = list(useEarlyStopping=TRUE,
-                         params = list(patience=4)))
+                         params = list(patience=4L)))
 )
 
 classicModelSettings <- list(logisticRegressionModelSettings,
@@ -344,7 +344,7 @@ for (modelSetting in classicModelSettings) {
 
 
 # source the latest PatientLevelPredictionModule SettingsFunctions.R
-source("https://raw.githubusercontent.com/OHDSI/DeepPatientLevelPredictionModule/v0.0.8/SettingsFunctions.R")
+source("https://raw.githubusercontent.com/OHDSI/DeepPatientLevelPredictionModule/v0.0.8p/SettingsFunctions.R")
 source("https://raw.githubusercontent.com/OHDSI/PatientLevelPredictionModule/v0.1.0/SettingsFunctions.R")
 
 # this will load a function called createPatientLevelPredictionModuleSpecifications
