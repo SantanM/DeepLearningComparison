@@ -360,7 +360,7 @@ patientLevelPredictionModuleSpecifications <- createPatientLevelPredictionModule
 analysisSpecifications <- createEmptyAnalysisSpecificiations() |>
   addSharedResources(createCohortSharedResource(cohortDefinitions)) |>
   addModuleSpecifications(cohortGeneratorModuleSpecifications) |>
- addModuleSpecifications(patientLevelPredictionModuleSpecifications)|>
+ addModuleSpecifications(patientLevelPredictionModuleSpecifications) |>
   addModuleSpecifications(deepPatientLevelPredictionModuleSpecifications)
 
 # SAVING TO SHARE
