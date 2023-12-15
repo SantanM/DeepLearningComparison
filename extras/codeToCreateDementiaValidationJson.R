@@ -50,6 +50,8 @@ cohortIds <- list(dementia = list(target = 11931, outcome = 6243),
                   lungCancer = list(target = 11932, outcome = 298),
                   bipolar = list(target = 11454, outcome = 10461))
 
+cohortIds <- list(rapso = list(target=6372, outcome = 10657)
+
 # EXTRACTING COHORTS
 baseUrl <- keyring::key_get('webapi', 'baseurl')
 ROhdsiWebApi::authorizeWebApi(
